@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: ms-payment
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres:5432/vendas_db
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate.lob.non_contextual_creation: true
+    generate-ddl: true
+    show-sql: true
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://serviceregistry:8761/eureka
+    instance:
+      hostname: ms-payment
+      instance-id: ${spring.application.name}:${random.value}
+      prefer-ip-address: true

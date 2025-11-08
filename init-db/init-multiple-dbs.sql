@@ -1,6 +1,7 @@
 -- cria os bancos
 CREATE DATABASE pedidos_db;
 CREATE DATABASE vendas_db;
+CREATE DATABASE payments_db;
 
 -- cria o usuário (se ainda não existir)
 CREATE USER "user" WITH ENCRYPTED PASSWORD 'password';
@@ -8,6 +9,7 @@ CREATE USER "user" WITH ENCRYPTED PASSWORD 'password';
 -- dá permissões nos bancos
 GRANT ALL PRIVILEGES ON DATABASE pedidos_db TO "user";
 GRANT ALL PRIVILEGES ON DATABASE vendas_db TO "user";
+GRANT ALL PRIVILEGES ON DATABASE payments_db TO "user";
 
 -- dá permissões no schema public de cada banco
 \c pedidos_db
