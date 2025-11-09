@@ -16,13 +16,14 @@ spring:
     show-sql: true
 
 server:
-  port: 8082 
+  port: 8082
 
 eureka:
   client:
     service-url:
       defaultZone: http://serviceregistry:8761/eureka
-    instance:
-      hostname: ms-order
-      instance-id: ${spring.application.name}:${random.value}
-      prefer-ip-address: true
+
+  instance:
+    hostname: ms-order
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.value}
