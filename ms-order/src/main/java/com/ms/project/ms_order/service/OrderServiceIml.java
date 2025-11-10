@@ -1,15 +1,14 @@
 package com.ms.project.ms_order.service;
 
 import com.ms.project.ms_order.client.ProductClient;
-import com.ms.project.ms_order.dto.OrderRequestDTO;
-import com.ms.project.ms_order.dto.OrderResponseDTO;
-import com.ms.project.ms_order.dto.ProductResponse;
+import com.ms.project.ms_order.dto.*;
 import com.ms.project.ms_order.exception.OrderNotFoundException;
 import com.ms.project.ms_order.model.Order;
 import com.ms.project.ms_order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,6 +19,7 @@ public class OrderServiceIml implements OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductClient productClient;
+    private final RabbitMQService rabbitMQService;
 
     @Override
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
@@ -27,6 +27,9 @@ public class OrderServiceIml implements OrderService {
 
         var order = Order.fromDto(orderRequestDTO);
         var savedOrder = orderRepository.save(order);
+
+        // ENVIAR MENSAGEM PARA RABBITMQ
+        enviarSolicitacaoPagamento(savedOrder);
 
         List<ProductResponse> produtosDoPedido = filtrarProdutosDoPedido(orderRequestDTO);
 
@@ -78,6 +81,41 @@ public class OrderServiceIml implements OrderService {
             throw new OrderNotFoundException(id);
         }
         orderRepository.deleteById(id);
+    }
+
+    // NOVO MÉTODO - Enviar solicitação de pagamento para RabbitMQ
+    private void enviarSolicitacaoPagamento(Order order) {
+        try {
+            // Buscar produtos para calcular o total
+            List<ProductResponse> produtos = buscarProdutosDoPedido(order);
+            BigDecimal totalPedido = calcularTotalPedido(produtos);
+
+            // Criar mensagem de pagamento
+            PaymentMessageDTO paymentMessage = new PaymentMessageDTO(
+                    order.getId(),
+                    totalPedido,
+                    "PAY-" + order.getId(),
+                    1L // customerId padrão - você pode ajustar conforme sua lógica
+            );
+
+            // Enviar para RabbitMQ
+            rabbitMQService.sendPaymentRequest(paymentMessage);
+
+            System.out.println("📤 Solicitação de pagamento enviada para o pedido: " + order.getId());
+            System.out.println("💰 Valor total: " + totalPedido);
+
+        } catch (Exception e) {
+            System.err.println("❌ Erro ao enviar solicitação de pagamento para pedido: " + order.getId());
+            System.err.println("Erro: " + e.getMessage());
+            // Você pode decidir se quer lançar a exceção ou apenas logar o erro
+        }
+    }
+
+    // MÉTODO AUXILIAR - Calcular total do pedido CORRIGIDO
+    private BigDecimal calcularTotalPedido(List<ProductResponse> produtos) {
+        return produtos.stream()
+                .map(ProductResponse::preco) // Já é BigDecimal, não precisa converter
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private Order buscarOrderPorId(Long id) {

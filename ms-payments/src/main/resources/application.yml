@@ -37,4 +37,6 @@ app:
   rabbitmq:
     exchange: payments.exchange
     queue-order: order.payment.queue
+    queue-payment-response: payment.response.queue
     routing-key-order: order.payment
+    routing-key-payment-response: payment.response
