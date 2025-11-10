@@ -1,6 +1,6 @@
 # Sales Microservices API
 
-Este projeto contém a arquitetura de microserviços para um sistema de vendas, incluindo gerenciamento de produtos, pedidos, gateway e serviço de registro (Eureka). Todos os serviços foram configurados para rodar via Docker e também podem ser executados localmente via Maven multi-module (fazendo alguns ajustes nas configurações do projeto).
+Este projeto contém a arquitetura de microserviços para um sistema de vendas, incluindo gerenciamento de produtos, pedidos, pagamentos, gateway e serviço de registro (Eureka). Todos os serviços foram configurados para rodar via Docker e também podem ser executados localmente via Maven multi-module (fazendo alguns ajustes nas configurações do projeto).
 
 ---
 
@@ -12,6 +12,7 @@ Este projeto contém a arquitetura de microserviços para um sistema de vendas, 
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-20.10-blue?logo=docker&logoColor=white)
 ![Docker Compose](https://img.shields.io/badge/Docker_Compose-1.29-blue?logo=docker&logoColor=white)
+![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3.13-orange?logo=rabbitmq&logoColor=white)
 ![Maven](https://img.shields.io/badge/Maven-multi--module-red?logo=apachemaven&logoColor=white)
 ![Lombok](https://img.shields.io/badge/Lombok-red?logo=java&logoColor=white)
 ![JPA/Hibernate](https://img.shields.io/badge/JPA--Hibernate-orange?logo=hibernate&logoColor=white)
@@ -30,6 +31,7 @@ sales-ms-api/
 ├── gateway/          # API Gateway
 ├── ms-product/       # Microserviço de Produtos
 ├── ms-order/         # Microserviço de Pedidos
+├── ms-payments/      # Microserviço de Pagamentos
 └── pom.xml
 
 ```
@@ -46,9 +48,11 @@ docker compose up --build
 2. Serviços e portas configuradas:
    - PostgreSQL: 5433 (usuários ``postgres`` e ``user``)
    - Service Registry: 8761 (Eureka Server)
+   - RabbitMQ: 5672 e 15672
    - Gateway: 8080
    - MS Product: 8081
    - MS Order: 8082
+   - MS payments: 8083
 
 3. Teste os serviços no Eureka acessando:
 ```arduino
@@ -56,19 +60,29 @@ http://localhost:8761/
 ```
 Você deverá ver `ms-product` e `ms-order` registrados.
 
+4. Teste o painel RabbitMQ:
+```
+http://localhost:15672
+```
+O usuario e a senha são: guest. Ao cadastrar uma order, deve-se mostrar as requisições na lista.
+
 ---
 
 ## Configurações importantes
 
 ### Banco de Dados
 
-- Scripts de inicialização em `init-db/` criam os bancos `pedidos_db` e `vendas_db` e o usuário `user`.
+- Scripts de inicialização em `init-db/` criam os bancos `pedidos_db` e `vendas_db` e `payments_db` e o usuário `user`.
 - Docker Compose cria um volume próprio chamado `sales_ms_pgdata`.
 
 ### Eureka Server (serviceregistry)
 
 - Porta: 8761
 - Configuração: não registra a si mesmo, apenas atua como registry.
+
+### RabbitMQ painel:
+- Porta painel: 15672
+- Porta aplicação: 5672
 
 ### Microserviços (ms-product, ms-order)
 
@@ -77,3 +91,4 @@ Você deverá ver `ms-product` e `ms-order` registrados.
 - Cada serviço possui porta própria:
     - `ms-product`: 8081
     - `ms-order`: 8082
+    - `ms-payments`: 8083
