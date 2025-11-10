@@ -2,6 +2,8 @@
 
 Este projeto contém a arquitetura de microserviços para um sistema de vendas, incluindo gerenciamento de produtos, pedidos, pagamentos, gateway e serviço de registro (Eureka). Todos os serviços foram configurados para rodar via Docker e também podem ser executados localmente via Maven multi-module (fazendo alguns ajustes nas configurações do projeto).
 
+Para testar, verifique o insomnia do projeto presente nos diretorios.
+
 ---
 
 ## Tecnologias
