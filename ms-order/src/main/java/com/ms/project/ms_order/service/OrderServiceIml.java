@@ -4,6 +4,7 @@ import com.ms.project.ms_order.client.ProductClient;
 import com.ms.project.ms_order.dto.OrderRequestDTO;
 import com.ms.project.ms_order.dto.OrderResponseDTO;
 import com.ms.project.ms_order.dto.ProductResponse;
+import com.ms.project.ms_order.exception.OrderNotFoundException;
 import com.ms.project.ms_order.model.Order;
 import com.ms.project.ms_order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,16 @@ public class OrderServiceIml implements OrderService {
 
     @Override
     public List<OrderResponseDTO> getAllOrders() {
+        List<ProductResponse> todosProdutos = productClient.getAllProducts();
+
         return orderRepository.findAll()
                 .stream()
-                .map(order -> new OrderResponseDTO(order, List.of()))
+                .map(order -> {
+                    List<ProductResponse> produtosDoPedido = todosProdutos.stream()
+                            .filter(p -> order.getProductIds().contains(p.id()))
+                            .toList();
+                    return new OrderResponseDTO(order, produtosDoPedido);
+                })
                 .toList();
     }
 
@@ -67,14 +75,14 @@ public class OrderServiceIml implements OrderService {
     @Override
     public void deleteOrder(Long id) {
         if (!orderRepository.existsById(id)) {
-            throw new RuntimeException("Order not found with id: " + id);
+            throw new OrderNotFoundException(id);
         }
         orderRepository.deleteById(id);
     }
 
     private Order buscarOrderPorId(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+                .orElseThrow(() -> new OrderNotFoundException(id));
     }
 
     private List<ProductResponse> buscarProdutosDoPedido(Order order) {

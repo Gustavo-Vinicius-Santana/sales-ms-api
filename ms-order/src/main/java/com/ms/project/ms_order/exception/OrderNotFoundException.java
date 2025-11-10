@@ -1,4 +1,4 @@
-package exception;
+package com.ms.project.ms_order.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
