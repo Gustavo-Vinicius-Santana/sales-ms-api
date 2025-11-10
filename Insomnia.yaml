@@ -1,0 +1,472 @@
+type: collection.insomnia.rest/5.0
+name: sales-ms-api
+meta:
+  id: wrk_71c8ad5481674df6a2a4d91fbbd34bf9
+  created: 1762648420098
+  modified: 1762654536407
+  description: ""
+collection:
+  - name: order
+    meta:
+      id: fld_52083e69702e4bf79f0a2c066e1c2bf1
+      created: 1762648429962
+      modified: 1762654536407
+      sortKey: -1762648429962
+      description: ""
+    children:
+      - url: "{{ _.GATEWAY }}/ms-order/api/orders"
+        name: Listar pedidos
+        meta:
+          id: req_3d89dca9f0ec4363b2baae9d6d70f22d
+          created: 1762653066001
+          modified: 1762744905113
+          isPrivate: false
+          description: ""
+          sortKey: -1762653066001
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-order/api/orders/1"
+        name: Listar pedido por id
+        meta:
+          id: req_ad3a849aa0ba4ed5bf485e8a23f1eef2
+          created: 1762655972885
+          modified: 1762744905993
+          isPrivate: false
+          description: ""
+          sortKey: -1762184347834
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-order/api/orders/1"
+        name: Atualizar pedido por id
+        meta:
+          id: req_8dbeb264bc8346438c9175317111f0c7
+          created: 1762656021682
+          modified: 1762744907341
+          isPrivate: false
+          description: ""
+          sortKey: -1761949988750.5
+        method: PUT
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-order/api/orders/1"
+        name: deletar pedido por id
+        meta:
+          id: req_054ac2c8d99043e09d6100afcbb20ef0
+          created: 1762656051891
+          modified: 1762744910326
+          isPrivate: false
+          description: ""
+          sortKey: -1761832809208.75
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-order/api/orders"
+        name: Criar pedido
+        meta:
+          id: req_258b0319576d48c9b35636378fb9bb9b
+          created: 1762658368347
+          modified: 1762744903852
+          isPrivate: false
+          description: ""
+          sortKey: -1762653066101
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "orderDate": "2025-11-08T19:45:00",
+              "productIds": [1],
+              "status": "CONFIRMED"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: products
+    meta:
+      id: fld_607ee90ed3e441909d7db9888b78c369
+      created: 1762648437400
+      modified: 1762654536407
+      sortKey: -1762648437400
+      description: ""
+    children:
+      - url: "{{ _.GATEWAY }}/ms-product/api/products"
+        name: criar produto
+        meta:
+          id: req_420c7ba7c76241a2a87da528f3b62390
+          created: 1762651616951
+          modified: 1762744897884
+          isPrivate: false
+          description: ""
+          sortKey: -1762651616951
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Nome do Produto",
+              "quantidade": 10,
+              "descricao": "Descrição do produto",
+              "preco": 99.99
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-product/api/products"
+        name: listar produtos
+        meta:
+          id: req_c67425df44d84024b4c359aa2f8116be
+          created: 1762653034593
+          modified: 1762744900041
+          isPrivate: false
+          description: ""
+          sortKey: -1762544703796
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-product/api/products/1"
+        name: listar produto ID
+        meta:
+          id: req_7b88bffab79146ebbeae37721d544155
+          created: 1762653090068
+          modified: 1762744900984
+          isPrivate: false
+          description: ""
+          sortKey: -1762491247218.5
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-product/api/products/1"
+        name: editar produto
+        meta:
+          id: req_475a62e248004da29399a09501f65554
+          created: 1762653129690
+          modified: 1762744898951
+          isPrivate: false
+          description: ""
+          sortKey: -1762598160373.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Produto Atualizado",
+              "quantidade": 5,
+              "descricao": "Descrição atualizada",
+              "preco": 149.99
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-product/api/products/1"
+        name: deletar produto
+        meta:
+          id: req_388e2c0ea8c3452e84dab3a7c507261e
+          created: 1762653172029
+          modified: 1762744902648
+          isPrivate: false
+          description: ""
+          sortKey: -1762464518929.75
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: payments
+    meta:
+      id: fld_95ebcf3e471a4469b1f606d984ed2747
+      created: 1762653972875
+      modified: 1762657955640
+      sortKey: -1762648433681
+      description: ""
+    children:
+      - url: "{{ _.GATEWAY }}/ms-payment/api/payments"
+        name: criar pagamento
+        meta:
+          id: req_0d9854ede5b04a27b6391ae223150811
+          created: 1762653972877
+          modified: 1762744890339
+          isPrivate: false
+          description: ""
+          sortKey: -1762651616951
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "valor": 199.99,
+              "pedidoId": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-payment/api/payments"
+        name: listar pagamentos
+        meta:
+          id: req_935150fc9f954f5184a164615c294e77
+          created: 1762653972879
+          modified: 1762744863294
+          isPrivate: false
+          description: ""
+          sortKey: -1762544703796
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-payment/api/payments/1"
+        name: listar pagamento ID
+        meta:
+          id: req_a176e605713740049b68aa30b6f6d5da
+          created: 1762653972880
+          modified: 1762744873715
+          isPrivate: false
+          description: ""
+          sortKey: -1762491247218.5
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-payment/api/payments/1"
+        name: editar pagamento
+        meta:
+          id: req_3467f4562a114996a4596c7eff85408f
+          created: 1762653972882
+          modified: 1762744882719
+          isPrivate: false
+          description: ""
+          sortKey: -1762598160373.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "valor": 299.99,
+              "pedidoId": 2
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-payment/api/payments/1"
+        name: deletar pagamento
+        meta:
+          id: req_c42b54304c6d4409889c225fccb5aab9
+          created: 1762653972884
+          modified: 1762744879339
+          isPrivate: false
+          description: ""
+          sortKey: -1762464518929.75
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.GATEWAY }}/ms-payment/api/payments/registrar"
+        name: registrar pagamento
+        meta:
+          id: req_88750b84baae45f9a8e5b1dd59664b74
+          created: 1762654100441
+          modified: 1762744888281
+          isPrivate: false
+          description: ""
+          sortKey: -1762624888662.25
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "valor": 199.99,
+              "pedidoId": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_58790f04ef1e06df13e94ea6e591a6db43007525
+    created: 1762648420103
+    modified: 1762648420103
+environments:
+  name: Base Environment
+  meta:
+    id: env_58790f04ef1e06df13e94ea6e591a6db43007525
+    created: 1762648420101
+    modified: 1762658141812
+    isPrivate: false
+  data:
+    GATEWAY: http://localhost:8080
