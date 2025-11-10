@@ -84,7 +84,7 @@ O usuario e a senha são: guest. Ao cadastrar uma order, deve-se mostrar as requ
 - Porta painel: 15672
 - Porta aplicação: 5672
 
-### Microserviços (ms-product, ms-order)
+### Microserviços (ms-product, ms-order, ms-payment)
 
 - Configuração de banco via Docker Compose.
 - Eureka Client aponta para o Service Registry dentro do Docker.
