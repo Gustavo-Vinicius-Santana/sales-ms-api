@@ -17,6 +17,21 @@ services:
     networks:
       - app_network
 
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"   # Porta AMQP para aplicação
+      - "15672:15672" # Porta Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - app_network
+
   serviceregistry:
     build: ./serviceregistry
     container_name: serviceregistry
@@ -70,11 +85,16 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka
       - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
     ports:
       - "8082:8082"
     depends_on:
       - postgres
       - serviceregistry
+      - rabbitmq
     networks:
       - app_network
 
@@ -89,16 +109,22 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka
       - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
     ports:
       - "8083:8083"
     depends_on:
       - postgres
       - serviceregistry
+      - rabbitmq
     networks:
       - app_network
 
 volumes:
   sales_ms_pgdata:
+  rabbitmq_data:
 
 networks:
   app_network:
