@@ -1,4 +1,4 @@
-package exception;
+package com.ms.project.ms_payments.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +12,10 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity<Object> handleProductNotFoundException(
-            OrderNotFoundException ex, WebRequest request) {
+
+    @ExceptionHandler(PaymentNotFoundException.class)
+    public ResponseEntity<Object> handlePaymentNotFoundException(
+            PaymentNotFoundException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());

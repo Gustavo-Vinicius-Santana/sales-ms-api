@@ -9,5 +9,4 @@ public record OrderRequestDTO(
         LocalDateTime orderDate,
         List<Long> productIds,
         OrderStatus status
-) {
-}
+) {}

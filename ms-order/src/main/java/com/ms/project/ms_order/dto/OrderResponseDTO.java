@@ -9,14 +9,14 @@ import java.util.List;
 public record OrderResponseDTO(
         Long id,
         LocalDateTime orderDate,
-        List<Long> productIds,
+        List<ProductResponse> products,
         OrderStatus status
 ) {
-    public OrderResponseDTO(Order order) {
+    public OrderResponseDTO(Order order, List<ProductResponse> products) {
         this(
                 order.getId(),
                 order.getOrderDate(),
-                order.getProductIds(),
+                products,
                 order.getStatus()
         );
     }

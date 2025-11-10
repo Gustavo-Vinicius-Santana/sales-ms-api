@@ -14,15 +14,29 @@ spring:
         hibernate.lob.non_contextual_creation: true
     generate-ddl: true
     show-sql: true
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s
 
 server:
-  port: 8082 
+  port: 8082
 
 eureka:
   client:
     service-url:
       defaultZone: http://serviceregistry:8761/eureka
-    instance:
-      hostname: ms-order
-      instance-id: ${spring.application.name}:${random.value}
-      prefer-ip-address: true
+  instance:
+    hostname: ms-order
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.value}
+
+app:
+  rabbitmq:
+    exchange: payments.exchange
+    queue-order: order.payment.queue
+    queue-payment-response: payment.response.queue
+    routing-key-order: order.payment
+    routing-key-payment-response: payment.response
