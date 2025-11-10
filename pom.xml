@@ -12,6 +12,7 @@
     <modules>
         <module>ms-product</module>
         <module>ms-order</module>
+        <module>ms-payments</module>
         <module>gateway</module>
         <module>serviceregistry</module>
     </modules>

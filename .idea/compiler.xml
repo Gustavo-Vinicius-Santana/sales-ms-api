@@ -11,12 +11,22 @@
         <module name="serviceregistry" />
         <module name="ms-order" />
       </profile>
+      <profile name="Annotation profile for sales-ms-api" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+        </processorPath>
+        <module name="ms-payments" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="gateway" options="-parameters" />
       <module name="ms-order" options="-parameters" />
+      <module name="ms-payments" options="-parameters" />
       <module name="ms-product" options="-parameters" />
       <module name="serviceregistry" options="-parameters" />
     </option>
