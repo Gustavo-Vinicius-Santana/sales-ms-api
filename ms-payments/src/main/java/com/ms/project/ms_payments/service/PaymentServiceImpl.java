@@ -86,4 +86,17 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentResponseDTO registrarPagamento(PaymentRequestDTO paymentRequestDTO) {
         return createPayment(paymentRequestDTO);
     }
+
+    // NOVO MÉTODO - Processamento via RabbitMQ
+    @Override
+    public Payment processPayment(Payment payment) {
+        // Simular processamento de pagamento
+        // Aqui você pode integrar com gateway de pagamento real
+
+        // Simular um processamento bem-sucedido
+        payment.setStatus("APPROVED");
+
+        // Salvar no banco de dados
+        return paymentRepository.save(payment);
+    }
 }
