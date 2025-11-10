@@ -22,7 +22,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://serviceregistry:8761/eureka
-    instance:
-      hostname: ms-product
-      instance-id: ${spring.application.name}:${random.value}
-      prefer-ip-address: true
+
+  instance:
+    hostname: ms-product
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.value}
