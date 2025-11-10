@@ -78,6 +78,25 @@ services:
     networks:
       - app_network
 
+  ms-payment:
+    build: ./ms-payments
+    container_name: ms-payment
+    environment:
+      - SERVER_PORT=8083
+      - SPRING_APPLICATION_NAME=ms-payment
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/vendas_db
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8761/eureka
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+    ports:
+      - "8083:8083"
+    depends_on:
+      - postgres
+      - serviceregistry
+    networks:
+      - app_network
+
 volumes:
   sales_ms_pgdata:
 

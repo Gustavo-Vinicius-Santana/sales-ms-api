@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ms-payment
+    name: ms-payments
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://postgres:5432/vendas_db
@@ -16,13 +16,14 @@ spring:
     show-sql: true
 
 server:
-  port: 8082
+  port: 8083
 
 eureka:
   client:
     service-url:
       defaultZone: http://serviceregistry:8761/eureka
-    instance:
-      hostname: ms-payment
-      instance-id: ${spring.application.name}:${random.value}
-      prefer-ip-address: true
+
+  instance:
+    hostname: ms-payment
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.value}
